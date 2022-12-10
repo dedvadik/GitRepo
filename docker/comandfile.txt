@@ -1,0 +1,5 @@
+# Запуск phpnyadmin в определённой сети 
+docker run --name phpadmin -d -e PMA_ARBITRARY=1 --network myconnect -p 8080:80 phpmyadmin
+
+# Запуск mysql в определённой сети 
+docker run --name dbmaria -d -e MYSQL_ROOT_PASSWORD:1qaz2wsx --network myconnect -p 3808:3808 mariadb

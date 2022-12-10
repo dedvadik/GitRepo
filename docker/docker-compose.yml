@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: database
+# версия меняеться в ручную под нужную конфигурацию окружения 
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_USER: vadmin
+      MYSQL_PASSWORD: vadmin
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/MYSQL_DATA_DIR:/var/lib/mysql
+      - ./db/MYSQL_LOG_DIR:/var/log/mysqld
+
+  web:
+    container_name: web
+    image: nginx
+    restart: always
+    volumes:
+# первый путь это путь логов, второй путь это относительный путь для программы
+      - ./web/log:/var/log/nginx
+      - D:\Progect\MY site\portfolio:/usr/share/nginx/html
+    ports:
+      - 8090:80
+    links:
+      - db
+
+  language:
+    container_name: php
+# версия меняеться в ручную под нужную конфигурацию окружения 
+    image: php:5.6
+    restart: always
+
+#  phpmyadmin:
+#    container_name: phpmyadmin-compose 
+#    image: phpmyadmin
+#    restart: always
+#    ports:
+#      - 8088:80
+#      - 65000:443
+#    environment:
+#      - PMA_ARBITRARY=1
+#    links:
+#      - db
+    
+    depends_on:
+      - db
+    
+    
+networks:
+  default:
+    external:
+      name: myconnect
