@@ -24,7 +24,7 @@ services:
     volumes:
 # первый путь это путь логов, второй путь это относительный путь для программы
       - ./web/log:/var/log/nginx
-      - D:\Progect\MY site\portfolio:/usr/share/nginx/html
+      - D:\gitrepo\MY site\portfolio:/usr/share/nginx/html
     ports:
       - 8090:80
     links:
